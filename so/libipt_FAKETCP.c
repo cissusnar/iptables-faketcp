@@ -86,7 +86,7 @@ static struct xtables_target faketcp_tg_reg = {
 	.x6_options	= FAKETCP_opts,
 };
 
-void _init(void)
+void init(void)
 {
 	xtables_register_target(&faketcp_tg_reg);
 }

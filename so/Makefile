@@ -1,7 +1,9 @@
-CFLAGS = -Wall -Wextra
-LDFLAGS = -lxtables -fPIC -shared
+CFLAGS = -Wall -Wextra -Wl,-init=init
+#-Wl,--verbose
+LDFLAGS = -lxtables -DPIC -fPIC -shared -lm
 
 %.so : %.c
+	echo $(CC)
 	$(CC) $(CFLAGS) $(LDFLAGS) $< -o $@
 
 all: libipt_FAKETCP.so
