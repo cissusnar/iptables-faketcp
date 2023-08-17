@@ -31,8 +31,10 @@ faketcp_tg(struct sk_buff *skb, const struct xt_action_param *par)
 	const struct ipt_FAKETCP_info *info = par->targinfo;
 	__u8 new_proto = 0;
 
-	if (!skb_ensure_writable(skb, skb->len))
+	if (skb_ensure_writable(skb, skb->len)) {
+		pr_info("FAKETCP: skb writable failed\n");
 		return NF_DROP;
+	}
 
 	iph = ip_hdr(skb);
 
@@ -66,7 +68,7 @@ faketcp_tg6(struct sk_buff *skb, const struct xt_action_param *par)
 	const struct ipt_FAKETCP_info *info = par->targinfo;
 	__u8 new_proto = 0;
 
-	if (!skb_ensure_writable(skb, skb->len))
+	if (skb_ensure_writable(skb, skb->len))
 		return NF_DROP;
 
 	ip6h = ipv6_hdr(skb);
